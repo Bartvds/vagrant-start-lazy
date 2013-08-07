@@ -2,7 +2,7 @@
 
 > Files to quickly add a Vagrantfile and some Chef cookbooks to basic projects
 
-This is my beginner-level stash for the [Vagrant](http://www.vagrantup.com) files I start to copy from project to project.s 
+This is my beginner-level stash for the [Vagrant](http://www.vagrantup.com) files I start to copy from project to project. 
 
 **Note:** This stuff likely will turn out to be profoundly naïve in many embarrassing ways. Still it seems to be good enough too get some usable default vagrant up. Improvements welcome!
 
