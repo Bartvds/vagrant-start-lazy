@@ -1,6 +1,6 @@
-# vagrant-node-lazy
+# vagrant-start-lazy
 
-> Files to quickly add a Vagrantfile and some Chef cookbooks to node.js related projects
+> Files to quickly add a Vagrantfile and some Chef cookbooks to basic projects
 
 This is my beginner-level stash for the [Vagrant](http://www.vagrantup.com) files I start to copy from project to project.s 
 
@@ -8,7 +8,7 @@ This is my beginner-level stash for the [Vagrant](http://www.vagrantup.com) file
 
 ## Intro
 
-Use [Vagrant](http://www.vagrantup.com) to run your [node.js](http://nodejs.org) code on a Virtual Machine to test for platform specific issues while you work in your editors on another platform. 
+Use [Vagrant](http://www.vagrantup.com) to run your project on a Virtual Machine to test for platform specific issues while you work in your editors on another platform. 
 
 Vagrant will configure [VirtualBox](https://www.virtualbox.org/) to map and link the project root from the host to the guest (on Linux as `/vagrant`) and will automatically synchronise all changes. This means you can use your favorite IDE's and tooling on a Windows or Mac workstation (the VM 'host') and run a VM with a headless Linux server (the VM 'guest') using exactly the same files. 
 
@@ -31,7 +31,9 @@ The sub-directories hold sets of files you can export to your project to quickly
 ### Add Vagrant to a project
 
 1. Use the listing below to choose a set. 
-2. From the repo checkout copy all the *contents* of one set folder to your project. Make sure the `Vagrantfile` is in the root of the project, it works as the run configuration. The `cookbooks`-folder holds the [Chef](http://community.opscode.com/) cookbooks and any additional files. 
+1. From the repo checkout copy all the *contents* of one set folder to your project. Make sure the `Vagrantfile` is in the root of the project, it works as the run configuration. The `cookbooks`-folder holds the [Chef](http://community.opscode.com/) cookbooks and any additional files. `
+1. You'll probably want to add the files to your version control.
+	* But add the `/.vagrant` directory to your ignore config (eg: `.gitignore`) as it holds local data.
 
 ### Use your VM
 
@@ -40,13 +42,21 @@ The sub-directories hold sets of files you can export to your project to quickly
 	* The first time this will take a while as Vagrant will download the VM box image. It caches this globally for all projects using the same box source id/url.
 1. Run `vagrant ssh` to login to the VM guest over ssh. (window users check below to fix this)
 1. Use your ssh access to do work and start things on the VM.
-	* Vagrant configures the VM to map the project root on the guest as `/vagrant` on the host, and will syncronise all changes.
+	* Vagrant configures the VM to map the project root on the guest as `/vagrant` on the host, and will synchronise all changes.
 	* All other changes will be lost when the VM stops.
 1. When done leave the ssh session and return to the VM host
 	* On linux run `exit`
-1. Run `vagrant halt` to stop and close the VM (do nor forget this).
+1. Run `vagrant halt` to stop and close the VM to free resources (do not forget this!)
 
 If you are on Windows and your don't yet have a global `ssh` cli command you can use [this stackoverflow page](http://stackoverflow.com/questions/9885108/ssh-to-vagrant-box-in-windows) to make `vagrant ssh` work. I use [this solution](http://stackoverflow.com/a/16247703/1026362) with the [conemu](https://code.google.com/p/conemu-maximus5/) console wrapper to add git binaries to the windows PATH and get a ssh client. Alternately use Git Bash or a separate Putty session.
+
+### Modifiy provisioning
+
+On every restart you get a clean VM so any changes outside the shared project folder need to be made by the provisioning system:
+
+* The `Vagrantfile` is the main place to edit configs.
+* Each set's specifics are bundled in a custom `main` cookbook. Edit this for extra provisioning jobs or run some extra shell script.
+* The other cookbooks are imported from the wider Chef community and are *usually* not edited.
 
 ## Sets
 
@@ -54,14 +64,15 @@ Currently there is only one documented set:
 
 ### grunt
 
-For any project that builds or runs things via grunt.
+For any project that builds or runs things via [node.js](http://nodejs.org) and [grunt](http://www.gruntjs.com).
 
-Provisions [node.js](http://nodejs.org), setup [grunt](http://www.gruntjs.com) and run `npm install` on the project.
+Provisions node.js, setup `grunt` and run `npm install` on the project.
 
-* precise32 (Ubuntu 12.04)
+* box
+	* `precise32` (Ubuntu 12.04)
 * npm -g: `grunt-cli`
-* export `~/bin/` to $PATH 
-	* adds `lz` shell command (see below).
+* export `~/bin/` to PATH 
+	* `lz` shell command (see below).
 
 ## Shell commands
 
