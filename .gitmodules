@@ -1,0 +1,3 @@
+[submodule "grunt/cookbooks"]
+	path = grunt/cookbooks
+	url = https://github.com/Bartvds/vagrant-start-lazy
