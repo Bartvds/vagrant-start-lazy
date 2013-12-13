@@ -97,3 +97,6 @@ Copyright (c) 2013 Bart van der Schoor
 Author added files licensed under the MIT license.
 
 Imported cookbooks have their own licenses.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Bartvds/vagrant-start-lazy/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
