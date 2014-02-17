@@ -32,6 +32,6 @@ bash "install npm modules" do
     su -l vagrant -c "sudo npm install -g grunt-cli"
 
     # using --no-bin-links so things install on the linux VM in a windows host
-    su -l vagrant -c "cd /vagrant && npm install --no-bin-links"
+    # su -l vagrant -c "cd /vagrant && npm install --no-bin-links"
   EOH
 end
